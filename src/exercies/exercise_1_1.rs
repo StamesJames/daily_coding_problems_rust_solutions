@@ -2,7 +2,7 @@
 
 use std::ops::{Div, Mul};
 
-fn prod_array_with_div<T, const N:usize>(arr: &[T;N]) -> [T;N]
+fn get_product_of_all_other_elements_with_div<T, const N:usize>(arr: &[T;N]) -> [T;N]
 where
     T: Mul<Output = T> + Div<Output = T> + Clone
 {
@@ -11,7 +11,7 @@ where
     arr.clone().map(|x| prod.clone() / x)
 }
 
-fn prod_array_without_div<T, const N:usize>(arr: &[T;N]) -> [T;N]
+fn get_product_of_all_other_elements_without_div<T, const N:usize>(arr: &[T;N]) -> [T;N]
 where
     T: Mul<Output = T> + Clone
 {   
@@ -37,45 +37,45 @@ where
 
 #[test]
 fn test_1_2_3_4_5_with_div(){
-    assert_eq!([120, 60, 40, 30, 24], prod_array_with_div(&[1,2,3,4,5]));
+    assert_eq!([120, 60, 40, 30, 24], get_product_of_all_other_elements_with_div(&[1,2,3,4,5]));
 }
 
 
 #[test]
 fn test_3_2_1_with_div(){
-    assert_eq!([2,3,6], prod_array_with_div(&[3,2,1]));
+    assert_eq!([2,3,6], get_product_of_all_other_elements_with_div(&[3,2,1]));
 }
 
 
 #[test]
 fn test_1_2_3_4_5_without_div(){
-    assert_eq!([120, 60, 40, 30, 24], prod_array_without_div(&[1,2,3,4,5]));
+    assert_eq!([120, 60, 40, 30, 24], get_product_of_all_other_elements_without_div(&[1,2,3,4,5]));
 }
 
 
 #[test]
 fn test_3_2_1_without_div(){
-    assert_eq!([2,3,6], prod_array_without_div(&[3,2,1]));
+    assert_eq!([2,3,6], get_product_of_all_other_elements_without_div(&[3,2,1]));
 }
 
 
 #[test]
 #[should_panic]
 fn test_one_element_without_div(){
-    prod_array_without_div(&[1]);
+    get_product_of_all_other_elements_without_div(&[1]);
 }
 
 #[test]
 fn test_one_element_with_div(){
-    assert_eq!([1], prod_array_with_div(&[1]));
+    assert_eq!([1], get_product_of_all_other_elements_with_div(&[1]));
 }
 
 #[test]
 fn test_empty_with_div(){
-    assert_eq!([] as [i8;0], prod_array_with_div::<i8,0>(&[]));
+    assert_eq!([] as [i8;0], get_product_of_all_other_elements_with_div::<i8,0>(&[]));
 }
 
 #[test]
 fn test_empty_without_div(){
-    assert_eq!([] as [i8;0], prod_array_without_div::<i8,0>(&[]));
+    assert_eq!([] as [i8;0], get_product_of_all_other_elements_without_div::<i8,0>(&[]));
 }
